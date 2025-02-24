@@ -1,0 +1,217 @@
+<div class="pt-3">
+  <form method="post" action="{% url 'data:roles' %}" id="position">
+    {% csrf_token %}
+  <div class="row">
+    <div class="col-xl-2">
+      <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Role:</label>
+    </div>
+    <div class="col-xl-4">
+      <div data-mdb-input-init class="form-outline pb-4 pe-4">
+        <input type="text" class="form-control" placeholder="Job Placement" name="role" id="role" />
+        <span></span>
+      </div>
+    </div>
+  </div>
+    {% for x in values %}
+      <div class="row">
+        <div class="col-xl-2">
+          <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Begining:</label>
+        </div>
+        <div class="col-xl-4">
+          <div data-mdb-input-init class="form-outline pb-4 pe-4">
+            <input type="text" class="form-control" placeholder="Starting Date of Apply" name="starting_date" id="starting_date" value="{{ x.starting }}"/>
+            <span></span>
+          </div>
+        </div>
+        <div class="col-xl-2">
+          <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>END:</label>
+        </div>
+        <div class="col-xl-4">
+          <div data-mdb-input-init class="form-outline pb-4 pe-4">
+            <input type="text" class="form-control" placeholder="Last Date to Apply" name="last_date" id="last_date" value="{{ x.ending }}"/>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+  </form>
+
+    <script>
+      // get the value from the cookie
+      var role = getCookie("role");
+      // check a value has been stored
+        if (role !== '') {
+            // if it has updated
+            document.getElementById("role").value = role;
+        }
+
+      function display() {
+            var role = document.getElementById("role").value;
+            document.getElementById("role").value = role;
+
+            // store the input in a cookie
+            setCookie("role", role, 1);
+        }
+
+      function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+
+        }
+
+    const positionForm = document.querySelector('position');
+
+      form.addEventListener('keypress', function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          positionForm.submit();
+          display();
+        }
+      });
+
+    </script>
+
+    <hr class="mt-5 mb-5" style="height:2px;  background-color: black">
+
+  <form method="post" action="{% url 'data:candidates' %}" id="applicant">
+    {% csrf_token %}
+  <div class="card shadow">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xl-2">
+          <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Name:</label>
+        </div>
+        <div class="col-xl-4">
+          <div data-mdb-input-init class="form-outline pb-4 pe-4">
+            <input type="text" class="form-control" placeholder="Candidate name" name="name" id="name" />
+            <span></span>
+          </div>
+        </div>
+
+        {% for x in candidate %}
+        <div class="col-xl-2">
+          <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Country:</label>
+        </div>
+        <div class="col-xl-4">
+          <div data-mdb-input-init class="form-outline pb-4 pe-4">
+            <input type="text" class="form-control" placeholder="Country" name="country" id="country" value="{{ x.country }}"/>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-2">
+          <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Nationality:</label>
+        </div>
+        <div class="col-xl-4">
+          <div data-mdb-input-init class="form-outline pb-4 pe-4">
+            <input type="text" class="form-control" placeholder="Nationality" name="nationality" id="nationality" value="{{ x.nationality }}"/>
+            <span></span>
+          </div>
+        </div>
+        <div class="col-xl-2">
+          <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Religion:</label>
+        </div>
+        <div class="col-xl-4">
+          <div data-mdb-input-init class="form-outline pb-4 pe-4">
+            <input type="text" class="form-control" placeholder="Religion" name="religion" id="religion" value="{{ x.religion }}"/>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-2">
+          <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Gender:</label>
+        </div>
+        <div class="col-xl-4">
+          <div data-mdb-input-init class="form-outline pb-4 pe-4">
+            <input type="text" class="form-control" placeholder="Gender" name="gender" id="gender" value="{{ x.gender }}"/>
+            <span></span>
+          </div>
+        </div>
+        <div class="col-xl-2">
+          <label class="lead" style="font-family: Times New Roman, Times, serif;"><i class="fa-solid fa-user ps-3 pe-3"></i>Email:</label>
+        </div>
+        <div class="col-xl-4">
+          <div data-mdb-input-init class="form-outline pb-4 pe-4">
+            <input type="text" class="form-control" placeholder="Email" name="email" id="email" value="{{ x.email }}"/>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  </form>
+
+  <script>
+      // get the value from the cookie
+      var name = getCookie("name");
+      // check a value has been stored
+        if (name !== '') {
+            // if it has updated
+            document.getElementById("name").value = name;
+        }
+
+      function display() {
+            var name = document.getElementById("name").value;
+            document.getElementById("name").value = name;
+
+            // store the input in a cookie
+            setCookie("name", name, 1);
+        }
+
+      function setCookie(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
+
+        }
+
+    const applicantForm = document.querySelector('applicant');
+
+      form.addEventListener('keypress', function (event) {
+        if (event.keyCode === 13) {
+          event.preventDefault();
+          applicantForm.submit();
+          display();
+        }
+      });
+
+    </script>
+</div>
